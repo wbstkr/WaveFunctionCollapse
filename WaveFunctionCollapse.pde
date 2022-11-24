@@ -46,7 +46,7 @@ public int getGridOffset(int index, int offsetX, int offsetY) {
     int rowSize = width / TILESIZE;
     PVector gridPos = new PVector(index % rowSize, index / rowSize);
     gridPos.add(offsetX, offsetY);
-    int newIndex = int(gridPos.x * gridPos.y);
+    int newIndex = int(gridPos.x + (gridPos.y * rowSize));
     if (newIndex < 0 || newIndex >= grid.size()) {
         return - 1;
     } else {
@@ -55,7 +55,40 @@ public int getGridOffset(int index, int offsetX, int offsetY) {
 }
 
 public void update() {
-    // for(ArrayList<Integer>)
+    int least = 8;
+    for (ArrayList < Integer > module : grid) {
+        if (module.size() < least && module.size() > 1) {
+            least = module.size();
+        }
+    }
+    ArrayList<Integer> choose = new ArrayList();
+    for (int i = 0; i < grid.size(); i++) {
+        if (grid.get(i).size() == least) {
+            choose.add(i);
+        }
+    }
+    if (choose.size() > 0) {
+        Collections.shuffle(choose);
+        int index = choose.get(0);
+        Collections.shuffle(grid.get(index));
+        int temp = grid.get(index).get(0);
+        grid.get(index).clear();
+        grid.get(index).add(temp);
+        int[][] offsets = {{ - 1, 0} , {0, -1} , {1, 0} , {0, 1} };
+        for (int[] offset : offsets) {
+            int newIndex = getGridOffset(index, offset[0], offset[1]);
+            if (newIndex == -1) {
+                continue;
+            } else {
+                if (grid.get(newIndex).size() > 1) {
+                    grid.get(newIndex).clear();
+                    for (int n : RULES.get(temp)) {
+                        grid.get(newIndex).add(n);
+                    }
+                }
+            }
+        }
+    }
 }
 
 public void render() {
@@ -69,4 +102,8 @@ public void render() {
             tiles.drawSprite(grid.get(i).get(n), modulePos.x, modulePos.y, moduleWidth / float(tiles.sprite.width()));
         }
     }
+}
+
+public void keyPressed() {
+    if (key == ' ') setup();
 }
