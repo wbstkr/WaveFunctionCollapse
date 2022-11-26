@@ -1,42 +1,49 @@
 package wbstkr;
 
-import processing.core.PApplet;
 import wbstkr.util.SpriteSheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class WFCModule {
     private final SpriteSheet sheet;
-    private final List<Integer> contents;
+    private final ArrayList<Integer> states;
 
     public WFCModule(SpriteSheet sheet) {
         this.sheet = sheet;
-        this.contents = new ArrayList<>();
+        this.states = new ArrayList<>();
         for (int i = 0; i < this.sheet.size(); i++) {
-            this.contents.add(i);
+            this.states.add(i);
         }
     }
 
     public int size() {
-        return this.contents.size();
+        return this.states.size();
+    }
+
+    public ArrayList<Integer> getStates() {
+        return this.states;
     }
 
     public void render(float x, float y, float tileSize) {
-        int rowLength = (int) Math.ceil(Math.sqrt(this.contents.size()));
+        int rowLength = (int) Math.ceil(Math.sqrt(this.states.size()));
         float tileWidth = tileSize / rowLength;
-        for (int i = 0; i < this.contents.size(); i++) {
+        for (int i = 0; i < this.states.size(); i++) {
             float xOffset = i % rowLength * tileWidth;
-            float yOffset = (float) (i / rowLength * tileWidth);
-            this.sheet.drawSprite(this.contents.get(i), x + xOffset, y + yOffset, tileWidth / this.sheet.sprite.width());
+            float yOffset = (float) (i / rowLength) * tileWidth;
+            this.sheet.drawSprite(this.states.get(i), x + xOffset, y + yOffset, tileWidth / this.sheet.sprite.width());
         }
     }
 
     public void setRand() {
-        Collections.shuffle(this.contents);
-        int target = this.contents.get(0);
-        this.contents.clear();
-        this.contents.add(target);
+        Collections.shuffle(this.states);
+        int target = this.states.get(0);
+        this.states.clear();
+        this.states.add(target);
+    }
+
+    public void set(int i) {
+        this.states.clear();
+        this.states.add(i);
     }
 }

@@ -21,14 +21,16 @@ public class WaveFunctionCollapse extends PApplet {
     @Override
     public void setup() {
         SpriteSheet tiles = new SpriteSheet(this, "TileSet.png", 8, 8);
-        this.grid = new Grid(this, tiles, 20);
+        this.grid = new Grid(this, tiles, 100);
     }
 
     @Override
     public void draw() {
         background(0);
         this.grid.update();
-        this.grid.render();
+        if (this.grid.left <= 0) {
+            this.grid.render();
+        }
     }
 
     @Override
