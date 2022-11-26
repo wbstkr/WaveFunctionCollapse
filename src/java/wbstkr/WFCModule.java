@@ -4,6 +4,7 @@ import wbstkr.util.SpriteSheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class WFCModule {
     private final SpriteSheet sheet;
@@ -21,7 +22,7 @@ public class WFCModule {
         return this.states.size();
     }
 
-    public ArrayList<Integer> getStates() {
+    public List<Integer> getStates() {
         return this.states;
     }
 
@@ -30,7 +31,7 @@ public class WFCModule {
         float tileWidth = tileSize / rowLength;
         for (int i = 0; i < this.states.size(); i++) {
             float xOffset = i % rowLength * tileWidth;
-            float yOffset = (float) (i / rowLength) * tileWidth;
+            float yOffset = i / rowLength * tileWidth;
             this.sheet.drawSprite(this.states.get(i), x + xOffset, y + yOffset, tileWidth / this.sheet.sprite.width());
         }
     }

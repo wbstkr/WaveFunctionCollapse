@@ -117,7 +117,7 @@ public class Grid {
     public void render() {
         for (int i = 0; i < this.contents.size(); i++) {
             float x = i % this.rowLength * this.tileSize;
-            float y = (float) (i / this.rowLength) * this.tileSize;
+            float y = i / this.rowLength * this.tileSize;
             this.contents.get(i).render(x, y, this.tileSize);
         }
     }
