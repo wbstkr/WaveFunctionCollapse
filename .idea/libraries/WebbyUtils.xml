@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="WebbyUtils">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../Processing/libraries/WebbyUtils/library/WebbyUtils.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
